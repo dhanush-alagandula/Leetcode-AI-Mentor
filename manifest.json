@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "LeetCode AI Mentor",
+  "description": "AI mentor for LeetCode that gives hints, not solutions.",
+  "version": "1.0",
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon.png"
+  },
+  "permissions": ["storage", "activeTab", "scripting"],
+  "host_permissions": ["https://generativelanguage.googleapis.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://leetcode.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+}

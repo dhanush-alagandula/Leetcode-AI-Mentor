@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LeetCode AI Mentor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <h3>LeetCode AI Mentor</h3>
+
+    <!-- Shown when NOT on LeetCode -->
+    <div id="notLeetcode" style="display:none;">
+        This extension works only on LeetCode.
+    </div>
+
+    <!-- Main UI -->
+    <div id="setupUI" style="display:none;">
+        <label>Gemini API Key</label>
+        <input id="apiKey" type="password" placeholder="Enter your API key" />
+        <button id="saveBtn">Save & Activate</button>
+        <div id="status"></div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
