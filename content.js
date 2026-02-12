@@ -12,7 +12,6 @@ script.onload = function () {
 window.addEventListener("message", (event) => {
   if (event.source !== window) return;
   if (event.data.type && event.data.type === "LEETCODE_AI_CODE_UPDATE") {
-    // console.log("Received code update from injected script", event.data.code.length);
     latestUserCode = event.data.code;
   }
 });
@@ -498,7 +497,7 @@ function observeEditorChanges() {
 
     editorDebounceTimer = setTimeout(() => {
       const newCode = readCodeEditor();
-      console.log("✏️ Editor changed (final):", newCode);
+
       console.log("📊 Code length:", newCode.length, "chars");
       if (newCode && newCode !== latestUserCode) {
         latestUserCode = newCode;
