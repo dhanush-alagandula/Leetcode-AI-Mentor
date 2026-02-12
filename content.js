@@ -1,5 +1,23 @@
 console.log("LeetCode AI Mentor content script loaded");
 
+// Inject the script regarding Monaco access
+const script = document.createElement('script');
+script.src = chrome.runtime.getURL('injected.js');
+script.onload = function () {
+  this.remove();
+};
+(document.head || document.documentElement).appendChild(script);
+
+// Listen for code updates from injected script
+window.addEventListener("message", (event) => {
+  if (event.source !== window) return;
+  if (event.data.type && event.data.type === "LEETCODE_AI_CODE_UPDATE") {
+    // console.log("Received code update from injected script", event.data.code.length);
+    latestUserCode = event.data.code;
+  }
+});
+
+
 let isSidebarOpen = false;
 let latestUserCode = "";
 
@@ -79,6 +97,13 @@ function readCodeEditor() {
   } catch (e) {
     console.log("⚠️ Monaco API failed:", e.message);
   }
+
+  // Method 1b: Use data from injected script if available
+  if (latestUserCode && latestUserCode.length > 0) {
+    // console.log("🎯 Using code from injected script:", latestUserCode.length, "chars");
+    return latestUserCode;
+  }
+
 
   // Method 2: Try editor-container as fallback
   const editorContainer = document.querySelector(".editor-container");
@@ -422,11 +447,19 @@ function toggleSidebar() {
 }
 
 
-let lastProblemURL = location.href;
+function getProblemSlug(url) {
+  const match = url.match(/\/problems\/([^/]+)/);
+  return match ? match[1] : null;
+}
+
+let lastProblemSlug = getProblemSlug(location.href);
 
 const pageObserver = new MutationObserver(() => {
-  if (location.href !== lastProblemURL && location.href.includes("/problems/")) {
-    lastProblemURL = location.href;
+  const currentSlug = getProblemSlug(location.href);
+
+  // Only trigger if we are on a problem page and the slug has changed
+  if (currentSlug && currentSlug !== lastProblemSlug) {
+    lastProblemSlug = currentSlug;
 
     setTimeout(() => {
       onProblemChange();
@@ -481,4 +514,3 @@ function observeEditorChanges() {
 }
 
 setTimeout(observeEditorChanges, 1500);
-

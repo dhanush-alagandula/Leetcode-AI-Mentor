@@ -71,13 +71,4 @@ The extension uses advanced DOM manipulation to:
 - **AI-Powered Hints**: Sends context to Gemini with strict instructions to provide hints only
 - **Secure Communication**: Direct API calls with your personal key
 
-### Architecture
-
-```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Popup UI      │    │  Content Script  │    │   Gemini API    │
-│  (API Key)      │───▶│  (Bot & Chat)    │───▶│   (Hints)       │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-```
-
 **Happy coding! 🚀** If you find this helpful, please star the repo and share with fellow coders.

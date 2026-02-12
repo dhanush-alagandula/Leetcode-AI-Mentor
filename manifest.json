@@ -7,15 +7,35 @@
     "default_popup": "popup.html",
     "default_icon": "icon.png"
   },
-  "permissions": ["storage", "activeTab", "scripting"],
-  "host_permissions": ["https://generativelanguage.googleapis.com/*"],
+  "permissions": [
+    "storage",
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "https://generativelanguage.googleapis.com/*"
+  ],
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["https://leetcode.com/*"],
-      "js": ["content.js"]
+      "matches": [
+        "https://leetcode.com/*"
+      ],
+      "js": [
+        "content.js"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": [
+        "injected.js"
+      ],
+      "matches": [
+        "https://leetcode.com/*"
+      ]
     }
   ]
 }
